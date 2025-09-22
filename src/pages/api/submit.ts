@@ -7,7 +7,8 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const { firstName, lastName, title, company, email, linkedin } = req.body;
+      const { firstName, lastName, title, company, email, linkedin, wechat } =
+        req.body;
 
       const { data, error } = await supabase
         .from("guests")
@@ -19,6 +20,7 @@ export default async function handler(
             company,
             email,
             linkedin,
+            wechat,
           },
         ])
         .select();
@@ -31,12 +33,10 @@ export default async function handler(
         "Supabase insert error:",
         err instanceof Error ? err.message : "Unknown error"
       );
-      res
-        .status(500)
-        .json({
-          success: false,
-          error: err instanceof Error ? err.message : "Unknown error",
-        });
+      res.status(500).json({
+        success: false,
+        error: err instanceof Error ? err.message : "Unknown error",
+      });
     }
   } else if (req.method === "GET") {
     try {
