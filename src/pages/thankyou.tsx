@@ -2,7 +2,19 @@ import { GetServerSideProps } from "next";
 import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
 
-export default function ThankYou({ guest }: { guest: any }) {
+type Guest = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  title?: string;
+  company?: string;
+  email: string;
+  linkedin?: string;
+  wechat?: string;
+  created_at: string;
+};
+
+export default function ThankYou({ guest }: { guest: Guest | null }) {
   if (!guest) return <p>Guest not found.</p>;
 
   return (
