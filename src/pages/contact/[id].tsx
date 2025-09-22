@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 
 type Guest = {
@@ -39,6 +40,15 @@ export default function Contact({ guest }: { guest: Guest | null }) {
               {guest.linkedin}
             </a>
           </p>
+        </div>
+
+        {/* Back to Home link */}
+        <div className="mt-6 text-center">
+          <Link href="/">
+            <span className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition">
+              ⬅ Back to Home
+            </span>
+          </Link>
         </div>
       </div>
     </div>
