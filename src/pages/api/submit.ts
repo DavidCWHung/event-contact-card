@@ -26,9 +26,17 @@ export default async function handler(
       if (error) throw error;
 
       res.status(200).json({ success: true, guest: data[0] });
-    } catch (err: any) {
-      console.error("Supabase insert error:", err.message);
-      res.status(500).json({ success: false, error: err.message });
+    } catch (err: unknown) {
+      console.error(
+        "Supabase insert error:",
+        err instanceof Error ? err.message : "Unknown error"
+      );
+      res
+        .status(500)
+        .json({
+          success: false,
+          error: err instanceof Error ? err.message : "Unknown error",
+        });
     }
   } else if (req.method === "GET") {
     try {
@@ -43,8 +51,9 @@ export default async function handler(
       if (error) throw error;
 
       res.status(200).json({ success: true, guest: data });
-    } catch (err: any) {
-      res.status(500).json({ success: false, error: err.message });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      res.status(500).json({ success: false, error: message });
     }
   } else {
     res.status(405).json({ success: false, error: "Method not allowed" });
