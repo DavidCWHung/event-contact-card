@@ -7,8 +7,17 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const { firstName, lastName, title, company, email, linkedin, wechat } =
-        req.body;
+      const {
+        firstName,
+        lastName,
+        title,
+        company,
+        email,
+        linkedin,
+        wechat,
+        mobile,
+        whatsapp,
+      } = req.body;
 
       const { data, error } = await supabase
         .from("guests")
@@ -21,6 +30,8 @@ export default async function handler(
             email,
             linkedin,
             wechat,
+            mobile,
+            whatsapp,
           },
         ])
         .select();
