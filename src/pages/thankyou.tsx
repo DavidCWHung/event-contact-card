@@ -8,9 +8,11 @@ type Guest = {
   last_name: string;
   title?: string;
   company?: string;
-  email: string;
-  linkedin?: string;
+  mobile?: string;
+  email?: string;
+  whatsapp?: string;
   wechat?: string;
+  linkedin?: string;
   created_at: string;
 };
 

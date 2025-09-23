@@ -8,9 +8,11 @@ export default function GuestForm() {
     lastName: "",
     title: "",
     company: "",
+    mobile: "",
     email: "",
-    linkedin: "",
+    whatsapp: "",
     wechat: "",
+    linkedin: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,14 +79,14 @@ export default function GuestForm() {
           </div>
         </div>
 
-        {["title", "company", "email", "linkedin", "wechat"].map((field) => (
+        {["title", "company", "mobile", "email", "whatsapp", "wechat", "linkedin"].map((field) => (
           <div key={field} className="relative z-0 w-full mb-5 group">
             <input
               type={
                 field === "email"
                   ? "email"
-                  : field === "linkedin"
-                  ? "url"
+                  : field === "mobile" || field === "whatsapp"
+                  ? "tel"
                   : "text"
               }
               name={field}
