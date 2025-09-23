@@ -15,25 +15,34 @@ export default function GuestForm() {
     linkedin: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    if (data.success) {
-      router.push({
-        pathname: "/thankyou",
-        query: { guestId: data.guest.id }, // pass as query (optional)
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-    } else {
-      alert("Error: " + data.error);
+      const data = await res.json();
+      if (data.success) {
+        router.push({
+          pathname: "/thankyou",
+          query: { guestId: data.guest.id }, // pass as query (optional)
+        });
+      } else {
+        alert("Error: " + data.error);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
@@ -79,7 +88,15 @@ export default function GuestForm() {
           </div>
         </div>
 
-        {["title", "company", "mobile", "email", "whatsapp", "wechat", "linkedin"].map((field) => (
+        {[
+          "title",
+          "company",
+          "mobile",
+          "email",
+          "whatsapp",
+          "wechat",
+          "linkedin",
+        ].map((field) => (
           <div key={field} className="relative z-0 w-full mb-5 group">
             <input
               type={
@@ -103,6 +120,7 @@ export default function GuestForm() {
 
         <button
           type="submit"
+          disabled={loading} // disable button when loading
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
           Submit
