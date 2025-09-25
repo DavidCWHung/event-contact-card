@@ -23,7 +23,7 @@ export default function ThankYou({ guest }: { guest: Guest | null }) {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
         {" "}
-        <h1 className="text-lg text-center mb-4">
+        <h1 className="text-lg text-black text-center mb-4">
           Thank you!
           <br />
           Your number is <b>{guest.id}</b>.<br />
